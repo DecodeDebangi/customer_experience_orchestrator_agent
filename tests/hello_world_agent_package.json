@@ -1,0 +1,42 @@
+{
+  "name": "hello-world-agent-typescript",
+  "version": "1.0.0",
+  "description": "Hello World Agent - Reference Implementation in TypeScript for Agentic Commerce Hackathon",
+  "main": "dist/hello_world_agent.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/hello_world_agent.js",
+    "dev": "ts-node hello_world_agent.ts",
+    "dev:watch": "nodemon --exec ts-node hello_world_agent.ts",
+    "test": "node test_hello_world_agent_ts.js",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "agent",
+    "agentic-commerce",
+    "hackathon",
+    "logagent",
+    "typescript",
+    "reference-implementation"
+  ],
+  "author": "Logixal GenAI Team",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "axios": "^1.6.2",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.10.5",
+    "@types/uuid": "^9.0.7",
+    "typescript": "^5.3.3",
+    "ts-node": "^10.9.2",
+    "nodemon": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  }
+}
+

@@ -1,0 +1,618 @@
+{
+  "info": {
+    "name": "Logixal Agent AI - Complete Hackathon Collection (Node.js)",
+    "description": "Complete API collection for Agent AI Hackathon - Node.js Template with ALL endpoints",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": "2.0.0"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://192.168.15.48:8000",
+      "type": "string",
+      "description": "Main API server URL"
+    },
+    {
+      "key": "dashboard_url",
+      "value": "http://192.168.15.48:8888",
+      "type": "string",
+      "description": "Dashboard URL"
+    },
+    {
+      "key": "api_key",
+      "value": "logixal-agent-api-key-2024",
+      "type": "string",
+      "description": "API key for authentication"
+    },
+    {
+      "key": "agent_id",
+      "value": "my_nodejs_agent",
+      "type": "string",
+      "description": "Your agent ID"
+    },
+    {
+      "key": "agent_port",
+      "value": "8080",
+      "type": "string",
+      "description": "Your agent ID (change this to make it unique)"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Agent Registration APIs",
+      "item": [
+        {
+          "name": "Register New Agent",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"},
+              {"key": "Authorization", "value": "Bearer {{api_key}}"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"agentId\": \"{{agent_id}}\",\n  \"agentName\": \"My Node.js Agent\",\n  \"agentType\": \"nodejs\",\n  \"version\": \"1.0.0\",\n  \"capabilities\": [\"product_search\", \"recommendation\", \"chat\"],\n  \"endpoint\": \"http://192.168.15.48:8000\",\n  \"healthCheckUrl\": \"http://192.168.15.48:8000/health\",\n  \"metadata\": {\n    \"description\": \"Node.js hackathon agent for conversational commerce\",\n    \"author\": \"Your Name\",\n    \"platform\": \"Node.js\",\n    \"runtime\": \"Node.js 18+\",\n    \"team\": \"Team Name\",\n    \"github\": \"https://github.com/yourteam/agent\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/agents/register",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "agents", "register"]
+            },
+            "description": "Register your Node.js agent with the system"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Agent Info",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer {{api_key}}"}],
+            "url": {
+              "raw": "{{base_url}}/api/v1/agents/{{agent_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "agents", "{{agent_id}}"]
+            },
+            "description": "Get detailed information about your agent"
+          },
+          "response": []
+        },
+        {
+          "name": "List All Agents",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer {{api_key}}"}],
+            "url": {
+              "raw": "{{base_url}}/api/v1/agents?limit=50&offset=0",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "agents"],
+              "query": [
+                {"key": "limit", "value": "50"},
+                {"key": "offset", "value": "0"}
+              ]
+            },
+            "description": "List all registered agents"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Agent Status (Heartbeat)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"},
+              {"key": "Authorization", "value": "Bearer {{api_key}}"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"healthy\",\n  \"metadata\": {\n    \"uptimeSeconds\": 3600,\n    \"messagesProcessed\": 150,\n    \"messagesSent\": 45,\n    \"errorCount\": 0\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/agents/{{agent_id}}/status",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "agents", "{{agent_id}}", "status"]
+            },
+            "description": "Update agent health status and metrics"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Agent Metadata/Capabilities",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"},
+              {"key": "Authorization", "value": "Bearer {{api_key}}"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"agentName\": \"Updated Node.js Agent\",\n  \"capabilities\": [\"product_search\", \"recommendation\", \"chat\", \"ml_processing\"],\n  \"metadata\": {\n    \"description\": \"Updated Node.js agent with ML capabilities\",\n    \"author\": \"Your Name\",\n    \"platform\": \"Node.js\",\n    \"version\": \"2.0.0\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/agents/{{agent_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "agents", "{{agent_id}}"]
+            },
+            "description": "Update agent metadata and capabilities"
+          },
+          "response": []
+        },
+        {
+          "name": "Deregister Agent",
+          "request": {
+            "method": "DELETE",
+            "header": [{"key": "Authorization", "value": "Bearer {{api_key}}"}],
+            "url": {
+              "raw": "{{base_url}}/api/v1/agents/{{agent_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "agents", "{{agent_id}}"]
+            },
+            "description": "Remove agent from the system"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "2. Send Events & Logs",
+      "item": [
+        {
+          "name": "Send STARTUP Event",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"},
+              {"key": "Authorization", "value": "Bearer {{api_key}}"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"agentId\": \"{{agent_id}}\",\n  \"eventType\": \"STARTUP\",\n  \"data\": {\n    \"message\": \"Node.js agent started successfully\",\n    \"status\": \"initialized\"\n  },\n  \"timestamp\": \"{{$isoTimestamp}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/events",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "events"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Send INFO Event",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"},
+              {"key": "Authorization", "value": "Bearer {{api_key}}"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"agentId\": \"{{agent_id}}\",\n  \"eventType\": \"INFO\",\n  \"data\": {\n    \"message\": \"Processing user request\",\n    \"action\": \"product_search\",\n    \"query\": \"laptop\"\n  },\n  \"timestamp\": \"{{$isoTimestamp}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/events",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "events"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Send SUCCESS Event",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"},
+              {"key": "Authorization", "value": "Bearer {{api_key}}"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"agentId\": \"{{agent_id}}\",\n  \"eventType\": \"SUCCESS\",\n  \"data\": {\n    \"message\": \"Successfully processed request\",\n    \"action\": \"product_search\",\n    \"results_count\": 25\n  },\n  \"timestamp\": \"{{$isoTimestamp}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/events",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "events"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Send ERROR Event",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"},
+              {"key": "Authorization", "value": "Bearer {{api_key}}"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"agentId\": \"{{agent_id}}\",\n  \"eventType\": \"ERROR\",\n  \"data\": {\n    \"message\": \"Failed to connect to external API\",\n    \"error_code\": \"CONNECTION_TIMEOUT\",\n    \"error_details\": \"Timeout after 30 seconds\"\n  },\n  \"timestamp\": \"{{$isoTimestamp}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/events",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "events"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Send WARNING Event",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"},
+              {"key": "Authorization", "value": "Bearer {{api_key}}"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"agentId\": \"{{agent_id}}\",\n  \"eventType\": \"WARNING\",\n  \"data\": {\n    \"message\": \"High memory usage detected\",\n    \"memory_usage_percent\": 85\n  },\n  \"timestamp\": \"{{$isoTimestamp}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/events",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "events"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "3. Agent Logs APIs",
+      "item": [
+        {
+          "name": "Get Agent Logs",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer {{api_key}}"}],
+            "url": {
+              "raw": "{{base_url}}/api/v1/agents/{{agent_id}}/logs?limit=50&offset=0",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "agents", "{{agent_id}}", "logs"],
+              "query": [
+                {"key": "limit", "value": "50"},
+                {"key": "offset", "value": "0"}
+              ]
+            },
+            "description": "Get all logs for your agent"
+          },
+          "response": []
+        },
+        {
+          "name": "Get ERROR Logs Only",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer {{api_key}}"}],
+            "url": {
+              "raw": "{{base_url}}/api/v1/agents/{{agent_id}}/logs?event_type=ERROR&limit=20",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "agents", "{{agent_id}}", "logs"],
+              "query": [
+                {"key": "event_type", "value": "ERROR"},
+                {"key": "limit", "value": "20"}
+              ]
+            },
+            "description": "Get only ERROR logs for debugging"
+          },
+          "response": []
+        },
+        {
+          "name": "Get INFO Logs Only",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer {{api_key}}"}],
+            "url": {
+              "raw": "{{base_url}}/api/v1/agents/{{agent_id}}/logs?event_type=INFO&limit=20",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "agents", "{{agent_id}}", "logs"],
+              "query": [
+                {"key": "event_type", "value": "INFO"},
+                {"key": "limit", "value": "20"}
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get A2A Logs Only",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer {{api_key}}"}],
+            "url": {
+              "raw": "{{base_url}}/api/v1/agents/{{agent_id}}/logs?event_type=A2A&limit=20",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "agents", "{{agent_id}}", "logs"],
+              "query": [
+                {"key": "event_type", "value": "A2A"},
+                {"key": "limit", "value": "20"}
+              ]
+            },
+            "description": "Get only A2A communication logs"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Log Summary",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer {{api_key}}"}],
+            "url": {
+              "raw": "{{base_url}}/api/v1/agents/{{agent_id}}/logs/summary",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "agents", "{{agent_id}}", "logs", "summary"]
+            },
+            "description": "Get summary statistics of your agent's logs"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Logs by Date Range",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer {{api_key}}"}],
+            "url": {
+              "raw": "{{base_url}}/api/v1/agents/{{agent_id}}/logs/range?start_date=2025-11-20&end_date=2025-11-26&limit=100",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "agents", "{{agent_id}}", "logs", "range"],
+              "query": [
+                {"key": "start_date", "value": "2025-11-20"},
+                {"key": "end_date", "value": "2025-11-26"},
+                {"key": "limit", "value": "100"}
+              ]
+            },
+            "description": "Get logs within a specific date range"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "4. A2A Communication (Actually Sends Emails!)",
+      "item": [
+        {
+          "name": "Send Email via A2A Bridge",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"},
+              {"key": "Authorization", "value": "Bearer {{api_key}}"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"agentId\": \"{{agent_id}}\",\n  \"targetAgent\": \"notification_agent\",\n  \"action\": \"send_email\",\n  \"payload\": {\n    \"user_email\": \"your.email@example.com\",\n    \"subject\": \"Test Email from Node.js Agent\",\n    \"body\": \"This email was sent via A2A Bridge from Node.js agent! 🎉\",\n    \"user_id\": \"test_user\",\n    \"sku_id\": \"TEST-001\"\n  },\n  \"priority\": \"high\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/a2a/send",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "a2a", "send"]
+            },
+            "description": "Send email via A2A bridge - actually sends the email!"
+          },
+          "response": []
+        },
+        {
+          "name": "Send Email (Simplified)",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer {{api_key}}"}],
+            "url": {
+              "raw": "{{base_url}}/api/v1/a2a/email?agentId={{agent_id}}&to=your.email@example.com&subject=Test&body=Hello from Node.js agent!&priority=high",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "a2a", "email"],
+              "query": [
+                {"key": "agentId", "value": "{{agent_id}}"},
+                {"key": "to", "value": "your.email@example.com"},
+                {"key": "subject", "value": "Test"},
+                {"key": "body", "value": "Hello from Node.js agent!"},
+                {"key": "priority", "value": "high"}
+              ]
+            },
+            "description": "Simplified email sending"
+          },
+          "response": []
+        },
+        {
+          "name": "Send OOS Notification via A2A",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"},
+              {"key": "Authorization", "value": "Bearer {{api_key}}"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"agentId\": \"{{agent_id}}\",\n  \"targetAgent\": \"notification_agent\",\n  \"action\": \"send_oos_notification\",\n  \"payload\": {\n    \"user_id\": \"user_12345\",\n    \"user_email\": \"customer@example.com\",\n    \"sku_id\": \"LAPTOP-001\",\n    \"product_name\": \"Gaming Laptop\",\n    \"urgency\": \"high\"\n  },\n  \"priority\": \"high\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/a2a/send",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "a2a", "send"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Check Inventory via A2A",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"},
+              {"key": "Authorization", "value": "Bearer {{api_key}}"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"agentId\": \"{{agent_id}}\",\n  \"targetAgent\": \"inventory_agent\",\n  \"action\": \"check_inventory\",\n  \"payload\": {\n    \"sku_id\": \"175\",\n    \"quantity_threshold\": 10\n  },\n  \"priority\": \"normal\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/a2a/send",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "a2a", "send"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Broadcast to All Agents",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"},
+              {"key": "Authorization", "value": "Bearer {{api_key}}"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"agentId\": \"{{agent_id}}\",\n  \"targetAgent\": \"all\",\n  \"action\": \"broadcast\",\n  \"payload\": {\n    \"type\": \"maintenance_alert\",\n    \"message\": \"System maintenance in 30 minutes\"\n  },\n  \"priority\": \"high\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/a2a/send",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "a2a", "send"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Log A2A Event (Dashboard Only - No Email)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"},
+              {"key": "Authorization", "value": "Bearer {{api_key}}"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"agentId\": \"{{agent_id}}\",\n  \"eventType\": \"A2A\",\n  \"data\": {\n    \"message\": \"This only logs to dashboard, does not send email\",\n    \"target_agent\": \"notification_agent\"\n  },\n  \"timestamp\": \"{{$isoTimestamp}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/events",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "events"]
+            },
+            "description": "This only logs - does NOT send emails. Use /api/v1/a2a/send instead"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "5. Test Your Agent's Capabilities (/message endpoint)",
+      "description": "Use these APIs to trigger YOUR agent's business logic. Change {{agent_port}} to your agent's port (default: 8080).",
+      "item": [
+        {
+          "name": "Trigger Agent Capability (Generic)",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"message_id\": \"test_msg_001\",\n  \"sender_id\": \"test_client\",\n  \"receiver_id\": \"{{agent_id}}\",\n  \"action\": \"REQUEST\",\n  \"data\": {\n    \"capability\": \"your_capability_name\",\n    \"params\": {\n      \"param1\": \"value1\",\n      \"param2\": \"value2\"\n    }\n  },\n  \"priority\": \"normal\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:{{agent_port}}/message",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "{{agent_port}}",
+              "path": ["message"]
+            },
+            "description": "Generic template to trigger any capability on your agent. Replace 'your_capability_name' with your actual capability."
+          },
+          "response": []
+        },
+        {
+          "name": "Example: Product Search",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"message_id\": \"test_msg_002\",\n  \"sender_id\": \"test_client\",\n  \"receiver_id\": \"{{agent_id}}\",\n  \"action\": \"REQUEST\",\n  \"data\": {\n    \"capability\": \"product_search\",\n    \"params\": {\n      \"query\": \"laptop\",\n      \"limit\": 10\n    }\n  },\n  \"priority\": \"normal\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:{{agent_port}}/message",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "{{agent_port}}",
+              "path": ["message"]
+            },
+            "description": "Example: Trigger a product search capability"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Agent Health",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:{{agent_port}}/health",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "{{agent_port}}",
+              "path": ["health"]
+            },
+            "description": "Check if your agent is running and healthy"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "6. Dashboard APIs",
+      "item": [
+        {
+          "name": "Get System Overview",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/dashboard/overview",
+              "host": ["{{base_url}}"],
+              "path": ["api", "dashboard", "overview"]
+            },
+            "description": "Get system overview with agent counts and metrics"
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Agents (Dashboard)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/dashboard/agents",
+              "host": ["{{base_url}}"],
+              "path": ["api", "dashboard", "agents"]
+            },
+            "description": "Get all agents visible in dashboard"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Recent Events (Dashboard)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/dashboard/events?limit=50",
+              "host": ["{{base_url}}"],
+              "path": ["api", "dashboard", "events"],
+              "query": [{"key": "limit", "value": "50"}]
+            },
+            "description": "Get recent events shown in dashboard"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Business Metrics",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/dashboard/business-metrics?days=0",
+              "host": ["{{base_url}}"],
+              "path": ["api", "dashboard", "business-metrics"],
+              "query": [{"key": "days", "value": "0", "description": "0=today, 7=last 7 days, 30=last 30 days"}]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
+
